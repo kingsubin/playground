@@ -1,0 +1,32 @@
+<html lang='ko'>
+  <head>
+    <meta charset='utf-8' />
+    <title>{{data.title}}</title>
+  </head>
+  <body class="bg-green-100">
+    <script src='https://cdn.tailwindcss.com'></script>
+    <script src='https://unpkg.com/@babel/standalone/babel.min.js'></script>
+    <script
+      src='https://polyfill.io/v3/polyfill.min.js?features=default%2Ces2015%2Ces2016%2Ces2017%2Ces2018%2Ces2019'
+    ></script>
+    <script
+      src='https://cdn.socket.io/4.4.1/socket.io.min.js'
+      integrity='sha384-fKnu0iswBIqkjxrhQCTZ7qlLHOFEgNkRmK2vaO/LbTZSXdJfAu6ewRBdwHPhBo/H'
+      crossorigin='anonymous'
+    ></script>
+
+    <div class='flex w-full flex-col items-center justify-center max-w-screen-2xl mx-auto px-4'>
+      <header class='flex'>
+        <h1 class="text-4xl">chat...</h1>
+      </header>
+      <section class='flex flex-col w-full'>
+        <div id='chatting_box' class='flex flex-col'></div>
+        <form id='chat_form' class='flex w-full'>
+          <input placeholder='enter message...' class='flex w-full bg-slate-200'/>
+          <button type='submit' class='text-white py-4 px-8 bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 text-center'>Chat</button>
+        </form>
+      </section>
+    </div>
+    <script src='js/script.js'></script>
+  </body>
+</html>
