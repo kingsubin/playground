@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+<button class="button">click me</button>
+<pre>일반 클릭 이벤트 카운터 <span class="normal-msg">0</span></pre>
+<pre>debounce 클릭 이벤트 카운터 <span class="debounce-msg">0</span></pre>
+<pre>throttle 클릭 이벤트 카운터 <span class="throttle-msg">0</span></pre>
+
+<script>
+  const $button = document.querySelector('.button');
+  const $normalMsg = document.querySelector('.normal-msg');
+  const $debounceMsg = document.querySelector('.debounce-msg');
+  const $throttleMsg = document.querySelector('.throttle-msg');
+
+  const debounce = (callback, delay) => {
+    let timerId;
+
+    return event => {
+      if (timerId) clearTimeout(timerId);
+      timerId = setTimeout(callback, delay, event);
+    }
+  };
+
+  const throttle = (callback, delay) => {
+    let timerId;
+
+    return event => {
+      if (timerId) return;
+      timerId = setTimeout(() => {
+        callback(event);
+        timerId = null;
+      }, delay, event);
+    };
+  };
+
+  $button.addEventListener('click', () => {
+    $normalMsg.textContent++;
+  });
+  $button.addEventListener('click', debounce(() => {
+    $debounceMsg.textContent++;
+  }, 500));
+  $button.addEventListener('click', throttle(() => {
+    $throttleMsg.textContent++;
+  }, 500));
+</script>
+</body>
+</html>

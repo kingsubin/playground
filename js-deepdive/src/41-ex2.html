@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <style>
+      .container {
+          width: 300px;
+          height: 300px;
+          background-color: rebeccapurple;
+          overflow: scroll;
+      }
+
+      .content {
+          width: 300px;
+          height: 1000vh;
+      }
+  </style>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+<div class="container">
+  <div class="content"></div>
+</div>
+<div>
+  일반 이벤트 핸들러 scroll 처리 횟수
+  <span class="normal-count">0</span>
+</div>
+<div>
+  스로틀 이벤트 핸들러 scroll 처리 횟수
+  <span class="throttle-count">0</span>
+</div>
+
+<input type="text">
+<div class="msg"></div>
+
+<script>
+  const $container = document.querySelector('.container');
+  const $normalCount = document.querySelector('.normal-count');
+  const $throttleCount = document.querySelector('.throttle-count');
+
+  const throttle = (callback, delay) => {
+    let timerId;
+
+    return event => {
+      if (timerId) return;
+      timerId = setTimeout(() => {
+        callback(event);
+        timerId = null;
+      }, delay, event);
+    };
+  };
+
+  let normalCount = 0;
+  $container.addEventListener('scroll', () => {
+    $normalCount.textContent = ++normalCount;
+  });
+
+  let throttleCount = 0;
+  $container.addEventListener('scroll', throttle(() => {
+    $throttleCount.textContent = ++throttleCount;
+  }, 100));
+
+  //
+  const $input = document.querySelector('input');
+  const $msg = document.querySelector('.msg');
+
+  const debounce = (callback, delay) => {
+    let timerId;
+
+    return event => {
+      if (timerId) clearTimeout(timerId);
+      timerId = setTimeout(callback, delay, event);
+    }
+  };
+
+  $input.oninput = debounce(e => {
+    $msg.textContent = e.target.value;
+  }, 300);
+</script>
+</body>
+</html>
